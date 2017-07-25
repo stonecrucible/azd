@@ -24,7 +24,7 @@ else
 fi
 
 
-vocabulary=("list" "info" "help" "find" "vocabulary");
+vocabulary=("list" "info" "help" "find");
 vocabulary_root=("install" "remove" "update" "upgrade" "edit" "autoremove")
 
 if [[ "${vocabulary[*]}" =~ "$cmd"  ]]; then
@@ -32,8 +32,10 @@ if [[ "${vocabulary[*]}" =~ "$cmd"  ]]; then
 elif [[ "${vocabulary_root[*]}" =~ "$cmd"  ]]; then
     if [ "$(id -u)" != "0"  ];then xecho "requires root uid. exiting ..."; exit 1; fi ;
 else 
-    xecho "unkown command \"$cmd\""
-    exit 1
+    if [ "$cmd" != "vocabulary" ]; then
+        xecho "unkown command \"$cmd\""
+        exit 1
+    fi
 
 fi
 
